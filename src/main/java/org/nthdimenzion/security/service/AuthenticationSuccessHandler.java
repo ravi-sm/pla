@@ -42,6 +42,7 @@ public class AuthenticationSuccessHandler extends SavedRequestAwareAuthenticatio
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         LoggedInUserHolder.clearLoggedInUser();
         request.getSession().invalidate();
+        super.handle(request, response, authentication);
     }
 
     @Override
