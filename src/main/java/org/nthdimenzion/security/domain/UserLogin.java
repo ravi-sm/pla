@@ -13,7 +13,6 @@ import org.nthdimenzion.utils.UtilValidator;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Set;
 
 /**
@@ -91,6 +90,11 @@ public class UserLogin implements ICrudEntity {
 
     public UserLogin changePassword(String password) {
         this.password = password;
+        return this;
+    }
+
+    public UserLogin updateValidDate() {
+        this.validUptoDate = LocalDate.now();
         return this;
     }
 
