@@ -27,7 +27,7 @@ public class JpaRepositoryFactory {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public JpaRepository<ICrudEntity, ?> getCrudRepository(Class<?extends ICrudEntity> crudEntity) {
+    public JpaRepository<ICrudEntity, ?> getCrudRepository(ICrudEntity crudEntity) {
         Preconditions.checkNotNull(entityManager);
         JpaRepository<ICrudEntity, ?> crudRepository = new SimpleJpaRepository(crudEntity.getClass(), entityManager);
         return crudRepository;

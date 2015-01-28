@@ -8,11 +8,13 @@ package org.nthdimenzion.security.domain;
 
 import com.google.common.collect.Sets;
 import lombok.*;
+import org.hibernate.annotations.Type;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 import org.nthdimenzion.common.crud.ICrudEntity;
 import org.nthdimenzion.utils.UtilValidator;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.Set;
 
 /**
@@ -48,7 +50,9 @@ public class UserLogin implements ICrudEntity {
 
     private Integer numberOfFailedLoginAttempts = Integer.valueOf(0);
 
-    private LocalDate validUptoDate;
+
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
+    private LocalDateTime validUptoDateTime;
 
     @Getter
     @Setter
@@ -93,8 +97,8 @@ public class UserLogin implements ICrudEntity {
         return this;
     }
 
-    public UserLogin updateValidDate() {
-        this.validUptoDate = LocalDate.now();
+    public UserLogin updateValidDate(LocalDateTime validUptoDateTime) {
+        this.validUptoDateTime = validUptoDateTime;
         return this;
     }
 
@@ -126,7 +130,7 @@ public class UserLogin implements ICrudEntity {
     }
 
     boolean isValid(LocalDate date) {
-        if (validUptoDate == null || validUptoDate.isAfter(date)) {
+        if (validUptoDateTime == null || validUptoDateTime.isAfter(date)) {
             return true;
         } else {
             return false;
