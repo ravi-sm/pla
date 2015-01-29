@@ -1,2 +1,2 @@
 # PLA
-Application for PLA,Zambia
+Application for PLA
