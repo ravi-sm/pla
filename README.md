@@ -1,2 +1,2 @@
-# pla
-Insurance application for PLA,Zambia
+# PLA
+Application for PLA,Zambia
