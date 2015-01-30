@@ -1,6 +1,5 @@
 package org.nthdimenzion.application;
 
-import com.pla.DummyService;
 import org.joda.time.LocalDateTime;
 import org.junit.Assert;
 import org.junit.Test;
@@ -28,9 +27,6 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(value = "classpath:testContext.xml")
 public class TestContext {
-
-    @Autowired
-    private DummyService dummyService;
 
     @PersistenceContext
     private EntityManager entityManager;
