@@ -1,0 +1,39 @@
+#
+# Copyright (c) 1/22/15 8:50 PM.Nth Dimenzion, Inc - All Rights Reserved
+# Unauthorized copying of this file, via any medium is strictly prohibited
+# Proprietary and confidential
+#
+
+server:
+  port: 6443
+  context-path: /pla
+
+spring:
+  thymeleaf:
+      check-template-location: true
+      prefix: /WEB-INF/templates/
+      suffix: .html
+      mode: HTML5
+      encoding: UTF-8
+      content-type: text/html
+      cache: false
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: POSTGRESQL
+    show-sql: true
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/pla
+    driverClassName: org.postgresql.Driver
+    username: postgres
+    password: welcome
+    name: dataSource
+
+# MYSQL Configuration
+#spring.datasource.url:jdbc:mysql://localhost:3306/pla?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8&rewriteBatchedStatements=true
+#spring.datasource.driverClassName: com.mysql.jdbc.Driver
+#spring.datasource.username: root
+#spring.datasource.password:welcome
+
