@@ -26,6 +26,7 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 @EntityScan(basePackages = {"com.pla", "org.nthdimenzion"})
 public class Application {
 
+
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }

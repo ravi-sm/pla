@@ -11,11 +11,6 @@ server:
 spring:
   thymeleaf:
       check-template-location: true
-      prefix: /WEB-INF/templates/
-      suffix: .html
-      mode: HTML5
-      encoding: UTF-8
-      content-type: text/html
       cache: false
 
   jpa:

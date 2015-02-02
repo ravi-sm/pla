@@ -24,18 +24,17 @@
 </head>
 
 <body>
-    <div th:include="fragments/common :: bodyHeader" th:remove="tag"/>
-    <div class="container">
-        <div class="page-header">
-            <h2 th:text="#{welcome}">Welcome!</h2>
-        </div>
+<div th:include="fragments/common :: bodyHeader" th:remove="tag"/>
+<div class="container">
+    <div class="page-header">
     </div>
+</div>
 
-    <footer class="footer" th:include="fragments/common :: footer">
-        <div class="container">
-            <p class="text-muted">Place sticky footer content here.</p>
-        </div>
-    </footer>
+<footer class="footer" th:include="fragments/common :: footer">
+    <div class="container">
+        <p class="text-muted">Place sticky footer content here.</p>
+    </div>
+</footer>
 </body>
 
 </html>
