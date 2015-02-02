@@ -7,7 +7,6 @@
 package org.nthdimenzion.security.service;
 
 
-import org.nthdimenzion.presentation.LoggedInUserHolder;
 import org.nthdimenzion.security.repository.UserLoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -40,16 +39,13 @@ public class AuthenticationSuccessHandler extends SavedRequestAwareAuthenticatio
 
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        LoggedInUserHolder.clearLoggedInUser();
         request.getSession().invalidate();
         super.handle(request, response, authentication);
     }
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication auth) throws IOException, ServletException {
-        LoggedInUserHolder.clearLoggedInUser();
         final String username = request.getParameter("username");
-        LoggedInUserHolder.setUserName(username);
         super.setDefaultTargetUrl("/home");
         super.onAuthenticationSuccess(request, response, auth);
     }
