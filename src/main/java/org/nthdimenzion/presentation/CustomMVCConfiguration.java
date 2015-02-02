@@ -4,7 +4,7 @@
  * Proprietary and confidential
  */
 
-package org.nthdimenzion.security.configuration;
+package org.nthdimenzion.presentation;
 
 import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
@@ -12,20 +12,22 @@ import org.springframework.boot.context.embedded.ErrorPage;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
+
+import java.util.Locale;
 
 /**
  * @author: Samir
  * @since 1.0 24/01/2015
  */
 @Configuration
-public class ApplicationDefaultViewConfiguration extends WebMvcConfigurerAdapter {
+public class CustomMVCConfiguration extends WebMvcConfigurerAdapter {
 
     @Bean
     public EmbeddedServletContainerCustomizer containerCustomizer() {
@@ -41,6 +43,20 @@ public class ApplicationDefaultViewConfiguration extends WebMvcConfigurerAdapter
         };
     }
 
+    @Bean
+    public LocaleResolver localeResolver() {
+        SessionLocaleResolver slr = new SessionLocaleResolver();
+        slr.setDefaultLocale(Locale.US);
+        return slr;
+    }
+
+    @Bean
+    public LocaleChangeInterceptor localeChangeInterceptor() {
+        LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
+        lci.setParamName("lang");
+        return lci;
+    }
+
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
@@ -53,6 +69,10 @@ public class ApplicationDefaultViewConfiguration extends WebMvcConfigurerAdapter
         registry.addViewController("/home").setViewName("home");
     }
 
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(localeChangeInterceptor());
+    }
 
 
 }
