@@ -59,7 +59,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private AuthenticationFailureHandler authenticationFailureHandler;
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers("/", "/logout").permitAll().anyRequest().authenticated()
                 .and()
                 .formLogin().usernameParameter("username").passwordParameter("password")
