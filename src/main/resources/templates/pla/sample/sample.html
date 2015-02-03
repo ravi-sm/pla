@@ -29,18 +29,18 @@
         <h2>Sample Form</h2>
     </div>
 
-    <form role="form" th:action="@{sample}" th:method="post">
+    <form role="form" th:action="@{/sample/saveSample}" th:method="post" th:object="${sampleCommand}">
         <div class="row">
             <div class="form-group col-md-6">
                 <label class="control-label" for="emailaddress">Email</label>
-                <input type="email" class="form-control" name="emailAddress" id="emailaddress" placeholder="Enter email"/>
+                <input type="email" class="form-control" name="emailAddress" id="emailaddress" placeholder="Enter email" th:field="${sampleCommand.email}"/>
 
                 <p class="help-block">Space to provide hint for the above field. <code>name="emailaddress"</code></p>
             </div>
 
             <div class="form-group col-md-6">
                 <label class="control-label" for="password">Password</label>
-                <input type="password" class="form-control" name="password" id="password" placeholder="Password"/>
+                <input type="password" class="form-control" name="password" id="password" placeholder="Password" th:field="${sampleCommand.password}"/>
 
                 <p class="help-block">Space to provide hint for the above field <code>name="password"</code></p>
             </div>
@@ -55,42 +55,42 @@
             <div class="form-group col-md-6">
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" name="status"/> Active
+                        <input type="checkbox" name="status" th:field="${sampleCommand.active}"/> Active
                     </label>
                 </div>
                 <p class="help-block">Help text fot the checkbox.<code>name="uploadedFileName"</code></p>
             </div>
         </div>
         <div class="row">
-            <div class="form-group col-md-6">
+            <!--<div class="form-group col-md-6">
                 <label class="control-label">Choices<code>name="choices"</code></label>
 
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" name="choices" id="optionsCheckbox1" value="option1" checked="true"/>
+                        <input type="checkbox" name="choices" id="optionsCheckbox1" value="option1" checked="true" th:field="${sampleCommand.choices[0]}"/>
                         Option one is this and that&mdash;be sure to include why it's great
                     </label>
                 </div>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" name="choices" id="optionsCheckbox2" value="option2"/>
+                        <input type="checkbox" name="choices" id="optionsCheckbox2" value="option2" th:field="${sampleCommand.choices[1]}"/>
                         Option two can be something else and selecting it will deselect option one
                     </label>
                 </div>
-            </div>
+            </div>-->
 
             <div class="form-group col-md-6">
                 <label class="control-label">Sex<code>name="gender"</code></label>
 
                 <div class="radio">
                     <label>
-                        <input type="radio" name="gender" id="optionsRadios1" value="M" checked="true"/>
+                        <input type="radio" name="gender" id="optionsRadios1" value="M" th:field="${sampleCommand.gender}"/>
                         Male
                     </label>
                 </div>
                 <div class="radio">
                     <label>
-                        <input type="radio" name="gender" id="optionsRadios2" value="F"/>
+                        <input type="radio" name="gender" id="optionsRadios2" value="F" th:field="${sampleCommand.gender}"/>
                         Female
                     </label>
                 </div>

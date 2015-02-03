@@ -17,8 +17,5 @@ public class CommonController {
         return RequireJS.getSetupJavaScript("/pla/webjars/");
     }
 
-    @RequestMapping(value = "/sample", produces = "text/html")
-    public String sampleFormController() {
-        return "sample";
-    }
+
 }

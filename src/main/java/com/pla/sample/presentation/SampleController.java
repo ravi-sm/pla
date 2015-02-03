@@ -1,8 +1,8 @@
 package com.pla.sample.presentation;
 
 import com.pla.sample.application.AgentCommand;
+import com.pla.sample.application.SampleCommand;
 import org.axonframework.commandhandling.gateway.CommandGateway;
-import org.axonframework.commandhandling.interceptors.JSR303ViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,8 +17,8 @@ import javax.validation.Valid;
  */
 
 @Controller
-@RequestMapping(value = "/agent")
-public class AgentController {
+@RequestMapping(value = "/sample")
+public class SampleController {
 
 
     @Autowired
@@ -34,10 +34,24 @@ public class AgentController {
         return "pla/sample/agentCreation";
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/agent",method = RequestMethod.GET)
     public String getAgent(Model model){
         model.addAttribute("agentCommand", new AgentCommand());
         return "pla/sample/agentCreation";
+    }
+
+    @RequestMapping(produces = "text/html")
+    public String sampleFormController(Model model) {
+        System.out.println("Hello world");
+        model.addAttribute("sampleCommand", new SampleCommand());
+        return "/pla/sample/sample";
+    }
+
+    @RequestMapping(value = "/saveSample",method = RequestMethod.POST)
+    public String saveAgent(@Valid SampleCommand sampleCommand, BindingResult bindingResult){
+        System.out.println("SampleCommand");
+        System.out.println(sampleCommand);
+        return "pla/sample/sample";
     }
 
 }
