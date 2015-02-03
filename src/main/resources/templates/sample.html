@@ -5,20 +5,19 @@
   ~ Proprietary and confidential
 -->
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
+      lang="en">
 
 <head th:include="fragments/common :: headTag">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title></title>
     <link href="//cdn.jsdelivr.net/bootstrap/3.3.2/css/bootstrap.min.css"
-          th:href="@{/webjars/bootstrap/3.3.2/css/bootstrap.min.css}" rel="stylesheet" />
-
+          th:href="@{/webjars/bootstrap/3.3.2/css/bootstrap.min.css}" rel="stylesheet"/>
+    <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.js"
+            th:src="@{/js/bootstrap-datetimepicker.min.js}"></script>
     <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.js"
             th:src="@{/webjars/jquery/2.1.3/jquery.js}"></script>
-
     <script src="//cdn.jsdelivr.net/jquery-ui/1.11.2/jquery-ui.js"
             th:src="@{/webjars/jquery-ui/1.11.2/jquery-ui.js}"></script>
-
     <script src="//cdn.jsdelivr.net/bootstrap-modal/2.2.5/js/bootstrap-modal.js"
             th:src="@{/webjars/bootstrap-modal/2.2.5/js/bootstrap-modal.js}"></script>
 </head>
@@ -27,81 +26,109 @@
 <div th:include="fragments/common :: bodyHeader" th:remove="tag"/>
 <div class="container">
     <div class="page-header">
-        <h2 th:text="#{title.new}">Sample Form</h2>
+        <h2>Sample Form</h2>
     </div>
 
-    <div>
-        <form role="form">
-            <div class="form-group">
-                <label class="control-label" for="exampleInputEmail1">Email</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-                <p class="help-block">Lorem ipsum dolor sit amet</p>
+    <form role="form" th:action="@{sample}" th:method="post">
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label class="control-label" for="emailaddress">Email</label>
+                <input type="email" class="form-control" name="emailAddress" id="emailaddress" placeholder="Enter email"/>
+
+                <p class="help-block">Space to provide hint for the above field. <code>name="emailaddress"</code></p>
             </div>
 
-            <div class="form-group">
-                <label class="control-label" for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                <p class="help-block">Lorem ipsum dolor sit amet</p>
+            <div class="form-group col-md-6">
+                <label class="control-label" for="password">Password</label>
+                <input type="password" class="form-control" name="password" id="password" placeholder="Password"/>
+
+                <p class="help-block">Space to provide hint for the above field <code>name="password"</code></p>
             </div>
 
-            <div class="form-group">
+            <div class="form-group col-md-6">
                 <label class="control-label" for="exampleInputFile">File</label>
-                <input type="file" id="exampleInputFile">
-                <p class="help-block">Example block-level help text here.</p>
+                <input type="file" id="exampleInputFile" name="uploadedFileName"/>
+
+                <p class="help-block">Example block-level help text here.<code>name="uploadedFileName"</code></p>
             </div>
 
-            <div class="form-group">
+            <div class="form-group col-md-6">
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox"> Active
+                        <input type="checkbox" name="status"/> Active
                     </label>
                 </div>
-                <p class="help-block">Lorem ipsum dolor sit amet</p>
+                <p class="help-block">Help text fot the checkbox.<code>name="uploadedFileName"</code></p>
             </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label class="control-label">Choices<code>name="choices"</code></label>
 
-            <div class="form-group">
-                <label class="control-label">Choices</label>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" name="optionsRadios" id="optionsCheckbox1" value="option1" checked>
+                        <input type="checkbox" name="choices" id="optionsCheckbox1" value="option1" checked="true"/>
                         Option one is this and that&mdash;be sure to include why it's great
                     </label>
                 </div>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" name="optionsRadios" id="optionsCheckbox2" value="option2">
+                        <input type="checkbox" name="choices" id="optionsCheckbox2" value="option2"/>
                         Option two can be something else and selecting it will deselect option one
                     </label>
                 </div>
             </div>
 
-            <div class="form-group">
-                <label class="control-label">Sex</label>
+            <div class="form-group col-md-6">
+                <label class="control-label">Sex<code>name="gender"</code></label>
+
                 <div class="radio">
                     <label>
-                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                        <input type="radio" name="gender" id="optionsRadios1" value="M" checked="true"/>
                         Male
                     </label>
                 </div>
                 <div class="radio">
                     <label>
-                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                        <input type="radio" name="gender" id="optionsRadios2" value="F"/>
                         Female
                     </label>
                 </div>
                 <p class="help-block">Lorem ipsum dolor sit amet</p>
             </div>
+        </div>
 
-            <button type="submit" class="btn btn-default">Create User</button>
-        </form>
-    </div>
+        <div class="row">
+            <div class='col-sm-6'>
+                <div class="form-group">
+                    <div class='input-group date' id='datetimepicker1'>
+                        <input type="text" class="form-control" name="dateOfBirth"/>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                    </div>
+                </div>
+                <p class="help-block">Lorem ipsum dolor sit amet<code>name="gender"</code></p>
+
+
+            </div>
+
+        </div>
+        <div class="row text-center">
+            <div class="col-lg-12">
+                <button type="submit" class="btn btn-default align-center">Create User</button>
+            </div>
+        </div>
+    </form>
 </div>
+<script type="text/javascript">
+    $('#datetimepicker1').datepicker({format: "dd/mm/yyyy"});
+</script>
+</body>
 
 <footer class="footer" th:include="fragments/common :: footer">
     <div class="container">
         <p class="text-muted">Place sticky footer content here.</p>
     </div>
 </footer>
-</body>
 
 </html>

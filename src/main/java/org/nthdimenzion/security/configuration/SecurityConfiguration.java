@@ -9,7 +9,6 @@ package org.nthdimenzion.security.configuration;
 import org.nthdimenzion.security.service.AuthenticationFailureHandler;
 import org.nthdimenzion.security.service.AuthenticationSuccessHandler;
 import org.nthdimenzion.security.service.Http401UnauthorizedEntryPoint;
-import org.nthdimenzion.security.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +21,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
+import org.springframework.security.web.authentication.RememberMeServices;
+import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 
 import javax.sql.DataSource;
 
@@ -44,7 +46,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
     @Autowired
-    private UserService userService;
+    private UserDetailsService userService;
     @Autowired
     private ShaPasswordEncoder passwordEncoder;
     @Autowired
@@ -67,14 +69,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logout().logoutSuccessUrl("/login")
                 .logoutSuccessHandler(authenticationSuccessHandler).invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
-        .and()
-        .csrf().disable();
+                .and()
+                .rememberMe()
+                .key("pla_rem_srv")
+                .rememberMeServices(rememberMeServices())
+                .and()
+                .csrf().disable();
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
-                .antMatchers("/js/**","/css/**","/img/**","/webjars/**");
+                .antMatchers("/js/**", "/css/**", "/img/**", "/webjars/**","/webjarsjs");
     }
 
     @Override
@@ -117,5 +123,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         authenticationProvider.setPasswordEncoder(passwordEncoder);
         authenticationProvider.setUserDetailsService(userService);
         return authenticationProvider;
+    }
+
+    @Bean
+    public RememberMeServices rememberMeServices() {
+        // Key must be equal to rememberMe().key()
+        TokenBasedRememberMeServices rememberMeServices = new TokenBasedRememberMeServices("pla_rem_srv", userService);
+        rememberMeServices.setCookieName("remember_me_cookie");
+        rememberMeServices.setParameter("remember_me_checkbox");
+        rememberMeServices.setTokenValiditySeconds(2678400); // 1month
+        return rememberMeServices;
     }
 }
