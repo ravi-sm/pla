@@ -6,16 +6,11 @@
 
 package org.nthdimenzion.application;
 
-import org.nthdimenzion.security.configuration.SecurityConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.orm.jpa.EntityScan;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Import;
-import org.thymeleaf.spring4.SpringTemplateEngine;
-import org.thymeleaf.spring4.view.ThymeleafViewResolver;
-import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
+import org.springframework.context.annotation.ImportResource;
 
 /**
  * @author: Samir
@@ -24,6 +19,7 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 @SpringBootApplication
 @ComponentScan(basePackages = {"com.pla", "org.nthdimenzion"})
 @EntityScan(basePackages = {"com.pla", "org.nthdimenzion"})
+@ImportResource(value = "classpath:axonContext.xml")
 public class Application {
 
 
