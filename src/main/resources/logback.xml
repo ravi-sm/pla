@@ -14,9 +14,10 @@
         </encoder>
     </appender>
 
-    <logger name="org.springframework.web.servlet.view" level="debug"/>
-    <logger name="org.springframework.security" level="debug"/>
-    <logger name="org.thymeleaf"  level="debug"/>
+    <logger name="org.springframework.web.servlet.view" level="info"/>
+    <logger name="org.springframework.security" level="info"/>
+    <logger name="org.springframework.format" level="debug"/>
+    <logger name="org.thymeleaf"  level="info"/>
     <root level="info">
         <appender-ref ref="console"/>
     </root>
