@@ -1,0 +1,15 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body>
+<form id="gizmo-form" role="form" th:action="@{/agent/saveAgent}" method="post" th:object="${agentCommand}">
+    <div>
+        <label for="agentName" th:text="#{agentName}"></label>
+        <td th:if="${#fields.hasErrors('agentName')}" th:errors="*{agentName}">Name Error</td>
+        <input type="text" id="agentName" name="agentName" th:field="${agentCommand.agentName}" th:class="${#fields.hasErrors('agentName')}? fieldError"/>
+    </div>
+    <div>
+        <button type="submit">Save</button>
+    </div>
+</form>
+</body>
+
+</html>
