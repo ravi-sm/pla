@@ -20,7 +20,7 @@ spring:
     show-sql: true
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/pla
+    url: jdbc:postgresql://localhost:5432/pla?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8&rewriteBatchedStatements=true
     driverClassName: org.postgresql.Driver
     username: postgres
     password: welcome
