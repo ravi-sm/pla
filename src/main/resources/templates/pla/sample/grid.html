@@ -60,8 +60,9 @@
                 <td th:text="${person.branch}"></td>
                 <td th:text="${person.designation}"></td>
                 <!--<td th:text="${#dates.format(person.joiningDate,'dd/MM/yyyy')}"></td>-->
-                <td th:text="${person.joiningDate}"></td>
-                <td th:text="${#numbers.formatDecimal(person.commission,0,'COMMA', 2, 'POINT')}"></td>
+                <td th:text="${{person.joiningDate}}"></td>
+                <!--<td th:text="${#numbers.formatDecimal(person.commission,0,'COMMA', 2, 'POINT')}"></td>-->
+                <td th:text="${{person.commission}}"></td>
                 <td><span th:class="${person.status}?'label label-success':'label label-danger'" th:text="${person.status}"></span></td>
                 <td> <a class="btn btn-block" href="#" th:href="@{/grid/person/__${person.id}__}">Open</a></td>
             </tr>
