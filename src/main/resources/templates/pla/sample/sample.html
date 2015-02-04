@@ -90,6 +90,21 @@
                     </label>
                 </div>
             </div>-->
+            <div class="form-group col-md-6">
+                <label class="control-label">Choices<code>name="choices"</code></label>
+                <table>
+                    <tr th:each="choice : ${sampleCommand.choicesList}">
+                        <td>
+                            <input type="checkbox" th:value="${choice}" th:text="${choice}" th:field="${sampleCommand.selectedList}"/>
+                        </td>
+                    </tr>
+                </table>
+                <!--<ul>
+                    <li th:each="choiceDto : ${sampleCommand.choicesList}">
+                        <input type="checkbox" th:value="${choiceDto.choice}" th:text="${choiceDto.choice}" th:field="${sampleCommand.choicesList}"/>
+                    </li>
+                </ul>-->
+            </div>
 
             <div class="form-group col-md-6">
                 <label class="control-label">Sex<code>name="gender"</code></label>
@@ -113,6 +128,7 @@
         <div class="row">
             <div class='col-sm-6'>
                 <div class="form-group">
+                    <label class="control-label">Date Of Birth<code>name="dateOfBirth"</code></label>
                     <div class='input-group date' id='datetimepicker1'>
                         <input type="text" class="form-control" name="dateOfBirth" th:field="${{sampleCommand.dateOfBirth}}"/>
                         <td th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></td>
@@ -124,6 +140,17 @@
 
 
             </div>
+            <div>
+                <div class='col-sm-6'>
+                    <div class="form-group">
+                        <label class="control-label">Select Country<code>name="countries"</code></label>
+                        <select th:field="${sampleCommand.selectedCountry}">
+                            <option th:each="country : ${sampleCommand.countries}" th:value="${country}" th:text="${country}"></option>
+                        </select>
+                    </div>
+
+                </div>
+            </div>
 
         </div>
         <div class="row text-center">
@@ -134,12 +161,12 @@
     </form>
 </div>
 <script type="text/javascript">
-   /* $('#datetimepicker1').datepicker({
-            format: "dd/mm/yyyy",
-            orientation: "top auto",
-            clearBtn: true,
-            autoclose: true
-    });*/
+    /* $('#datetimepicker1').datepicker({
+     format: "dd/mm/yyyy",
+     orientation: "top auto",
+     clearBtn: true,
+     autoclose: true
+     });*/
 </script>
 </body>
 
