@@ -18,9 +18,7 @@ public class Person {
     private String name;
     private String branch;
     private String designation;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate joiningDate;
-    @NumberFormat(style= NumberFormat.Style.CURRENCY)
     private BigDecimal commission;
     private boolean status;
 
