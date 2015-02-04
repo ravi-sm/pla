@@ -19,14 +19,12 @@
     <![endif]-->
 
 </head>
-
 <body>
 <div th:include="fragments/common :: bodyHeader" th:remove="tag"/>
 <div class="container">
     <div class="page-header">
         <h2>Sample Form</h2>
     </div>
-
     <form role="form" th:action="@{/sample/saveSample}" th:method="post" th:object="${sampleCommand}">
         <div class="row">
             <div class="form-group col-md-6">
@@ -35,21 +33,18 @@
 
                 <p class="help-block">Space to provide hint for the above field. <code>name="emailaddress"</code></p>
             </div>
-
             <div class="form-group col-md-6">
                 <label class="control-label" for="password">Password</label>
                 <input type="password" class="form-control" name="password" id="password" placeholder="Password" th:field="${sampleCommand.password}"/>
 
                 <p class="help-block">Space to provide hint for the above field <code>name="password"</code></p>
             </div>
-
             <div class="form-group col-md-6">
                 <label class="control-label" for="exampleInputFile">File</label>
                 <input type="file" id="exampleInputFile" name="uploadedFileName"/>
 
                 <p class="help-block">Example block-level help text here.<code>name="uploadedFileName"</code></p>
             </div>
-
             <div class="form-group col-md-6">
                 <div class="checkbox">
                     <label>
@@ -60,22 +55,6 @@
             </div>
         </div>
         <div class="row">
-            <!--<div class="form-group col-md-6">
-                <label class="control-label">Choices<code>name="choices"</code></label>
-
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="choices" id="optionsCheckbox1" value="option1" checked="true" th:field="${sampleCommand.choices[0]}"/>
-                        Option one is this and that&mdash;be sure to include why it's great
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="choices" id="optionsCheckbox2" value="option2" th:field="${sampleCommand.choices[1]}"/>
-                        Option two can be something else and selecting it will deselect option one
-                    </label>
-                </div>
-            </div>-->
             <div class="form-group col-md-6">
                 <label class="control-label">Choices<code>name="choices"</code></label>
                 <table>
@@ -85,16 +64,9 @@
                         </td>
                     </tr>
                 </table>
-                <!--<ul>
-                    <li th:each="choiceDto : ${sampleCommand.choicesList}">
-                        <input type="checkbox" th:value="${choiceDto.choice}" th:text="${choiceDto.choice}" th:field="${sampleCommand.choicesList}"/>
-                    </li>
-                </ul>-->
             </div>
-
             <div class="form-group col-md-6">
                 <label class="control-label">Sex<code>name="gender"</code></label>
-
                 <div class="radio">
                     <label>
                         <input type="radio" name="gender" id="optionsRadios1" value="M" th:field="${sampleCommand.gender}"/>
@@ -110,7 +82,6 @@
                 <p class="help-block">Lorem ipsum dolor sit amet</p>
             </div>
         </div>
-
         <div class="row">
             <div class='col-sm-6'>
                 <div class="form-group">
@@ -123,8 +94,6 @@
                     </div>
                 </div>
                 <p class="help-block">Lorem ipsum dolor sit amet<code>name="gender"</code></p>
-
-
             </div>
             <div>
                 <div class='col-sm-6'>
@@ -134,10 +103,8 @@
                             <option th:each="country : ${sampleCommand.countries}" th:value="${country}" th:text="${country}"></option>
                         </select>
                     </div>
-
                 </div>
             </div>
-
         </div>
         <div class="row text-center">
             <div class="col-lg-12">
@@ -147,19 +114,11 @@
     </form>
 </div>
 <script type="text/javascript">
-    /* $('#datetimepicker1').datepicker({
-     format: "dd/mm/yyyy",
-     orientation: "top auto",
-     clearBtn: true,
-     autoclose: true
-     });*/
 </script>
 </body>
-
 <footer class="footer" th:include="fragments/common :: footer">
     <div class="container">
         <p class="text-muted">Place sticky footer content here.</p>
     </div>
 </footer>
-
 </html>

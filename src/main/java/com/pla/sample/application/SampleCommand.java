@@ -23,8 +23,6 @@ public class SampleCommand {
 
     private Boolean active;
 
-    //private List<Boolean> choices;
-
     private String gender="F";
 
     @Past(message = "{onlyPastDates}")
