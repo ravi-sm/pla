@@ -6,17 +6,15 @@
 
 package org.nthdimenzion.presentation;
 
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.LocalDate;
 import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.context.embedded.ErrorPage;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.Formatter;
 import org.springframework.format.FormatterRegistrar;
-import org.springframework.format.datetime.joda.JodaTimeFormatterRegistrar;
-import org.springframework.format.support.FormattingConversionService;
-import org.springframework.format.support.FormattingConversionServiceFactoryBean;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
@@ -26,7 +24,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
-import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 
@@ -36,8 +33,6 @@ import java.util.Set;
  */
 @Configuration
 public class CustomMVCConfiguration extends WebMvcConfigurerAdapter {
-
-    private Set<FormatterRegistrar> formatters;
 
     @Bean
     public EmbeddedServletContainerCustomizer containerCustomizer() {
@@ -84,23 +79,21 @@ public class CustomMVCConfiguration extends WebMvcConfigurerAdapter {
         registry.addInterceptor(localeChangeInterceptor());
     }
 
+    /**
+     * Uncomment below methods if you want to enable custom date formats
+     */
+
 /*
-    @Bean(name = "conversionService")
-    public FormattingConversionService mvcConversionService() {
-        FormattingConversionServiceFactoryBean bean = new FormattingConversionServiceFactoryBean();
-        bean.setRegisterDefaultFormatters(false);
-        bean.setFormatterRegistrars(getFormatterRegistry());
-        bean.afterPropertiesSet();
-        FormattingConversionService formattingConversionService = bean.getObject();
-        addFormatters(formattingConversionService);
-        return formattingConversionService;
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addFormatter(dateFormatter());
+        super.addFormatters(registry);
     }
 
-    public Set<FormatterRegistrar> getFormatterRegistry() {
-        JodaTimeFormatterRegistrar jodaTimeFormatterRegistrar = new JodaTimeFormatterRegistrar();
-        jodaTimeFormatterRegistrar.setDateFormatter(DateTimeFormat.forPattern("dd/MM/yyyy"));
-        Set<FormatterRegistrar> formatterRegistrars = new HashSet<>();
-        formatterRegistrars.add(jodaTimeFormatterRegistrar);
-        return formatterRegistrars;
-    }*/
+    @Bean
+    public Formatter<LocalDate> dateFormatter() {
+        return new JodaDateFormatter();
+    }
+*/
+
 }

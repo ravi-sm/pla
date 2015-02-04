@@ -1,18 +1,11 @@
 package com.pla.sample.presentation;
 
-import com.pla.sample.application.AgentCommand;
-import com.pla.sample.application.SampleCommand;
-import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.joda.time.LocalDate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
