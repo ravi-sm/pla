@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.LocalDate;
 
+import javax.validation.constraints.Past;
 import java.util.List;
 
 /**
@@ -26,6 +27,7 @@ public class SampleCommand {
 
     private String gender="F";
 
+    @Past(message = "{onlyPastDates}")
     private LocalDate dateOfBirth;
 
     private  List<String> choicesList = Lists.newArrayList("choiceOne","choiceTwo","choiceThree");
