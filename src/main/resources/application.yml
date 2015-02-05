@@ -16,15 +16,20 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    database: POSTGRESQL
+    database: MYSQL
     show-sql: true
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/pla?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8&rewriteBatchedStatements=true
-    driverClassName: org.postgresql.Driver
-    username: postgres
+#    url: jdbc:postgresql://localhost:5432/pla?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8&rewriteBatchedStatements=true
+#    driverClassName: org.postgresql.Driver
+#    username: postgres
+#    password: welcome
+#    name: dataSource
+
+    url: jdbc:mysql://localhost:3306/pla?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8&rewriteBatchedStatements=true
+    driverClassName: com.mysql.jdbc.Driver
+    username: root
     password: welcome
-    name: dataSource
 
 # MYSQL Configuration
 #spring.datasource.url:jdbc:mysql://localhost:3306/pla?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8&rewriteBatchedStatements=true
