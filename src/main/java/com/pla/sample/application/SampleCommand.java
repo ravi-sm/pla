@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.money.Money;
 import org.joda.time.LocalDate;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Past;
 import java.util.List;
@@ -38,5 +39,7 @@ public class SampleCommand {
     private  String selectedCountry;
 
     private Money commission;
+
+    private MultipartFile multipartFile;
 
 }

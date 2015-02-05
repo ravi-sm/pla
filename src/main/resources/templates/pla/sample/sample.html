@@ -25,7 +25,7 @@
     <div class="page-header">
         <h2>Sample Form</h2>
     </div>
-    <form role="form" th:action="@{/sample/saveSample}" th:method="post" th:object="${sampleCommand}">
+    <form role="form" th:action="@{/sample/saveSample}" th:method="post" th:object="${sampleCommand}" enctype="multipart/form-data">
         <div class="row">
             <div class="form-group col-md-6">
                 <label class="control-label" for="emailaddress" th:text="#{email}"></label>
@@ -50,7 +50,7 @@
 
             <div class="form-group col-md-6">
                 <label class="control-label" for="exampleInputFile">File</label>
-                <input type="file" id="exampleInputFile" name="uploadedFileName"/>
+                <input type="file" id="exampleInputFile" name="uploadedFileName"  th:value="${sampleCommand.multipartFile}" th:field="${sampleCommand.multipartFile}"/>
 
                 <p class="help-block">Example block-level help text here.<code>name="uploadedFileName"</code></p>
             </div>
@@ -60,7 +60,7 @@
                         <input type="checkbox" name="status" th:field="${sampleCommand.active}"/> Active
                     </label>
                 </div>
-                <p class="help-block">Help text fot the checkbox.<code>name="uploadedFileName"</code></p>
+                <p class="help-block">Help text fot the checkbox.<code>name="status"</code></p>
             </div>
         </div>
         <div class="row">
