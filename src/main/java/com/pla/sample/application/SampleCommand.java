@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import lombok.Data;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.joda.money.Money;
 import org.joda.time.LocalDate;
 
 import javax.validation.constraints.Past;
@@ -35,5 +36,7 @@ public class SampleCommand {
     private  List<String> selectedList = Lists.newArrayList();
 
     private  String selectedCountry;
+
+    private Money commission;
 
 }

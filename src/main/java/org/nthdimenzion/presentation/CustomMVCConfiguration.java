@@ -6,14 +6,17 @@
 
 package org.nthdimenzion.presentation;
 
-import org.joda.time.LocalDate;
+import org.joda.money.CurrencyUnit;
+import org.joda.money.Money;
+import org.joda.money.format.MoneyAmountStyle;
+import org.joda.money.format.MoneyFormatter;
+import org.joda.money.format.MoneyFormatterBuilder;
 import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.context.embedded.ErrorPage;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.Formatter;
-import org.springframework.format.FormatterRegistrar;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.LocaleResolver;
@@ -24,8 +27,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
+import java.text.ParseException;
 import java.util.Locale;
-import java.util.Set;
 
 /**
  * @author: Samir
@@ -79,21 +82,31 @@ public class CustomMVCConfiguration extends WebMvcConfigurerAdapter {
         registry.addInterceptor(localeChangeInterceptor());
     }
 
-    /**
-     * Uncomment below methods if you want to enable custom date formats
-     */
-
-/*
     @Override
     public void addFormatters(FormatterRegistry registry) {
-        registry.addFormatter(dateFormatter());
+        registry.addFormatter(new JodaMoneyFormatter());
         super.addFormatters(registry);
     }
 
-    @Bean
-    public Formatter<LocalDate> dateFormatter() {
-        return new JodaDateFormatter();
-    }
-*/
 
+    private class JodaMoneyFormatter implements Formatter<Money> {
+
+        private MoneyFormatter moneyFormatter;
+
+        public JodaMoneyFormatter() {
+            moneyFormatter = new MoneyFormatterBuilder().appendCurrencyCode().appendAmount(MoneyAmountStyle.ASCII_DECIMAL_POINT_GROUP3_COMMA).toFormatter();
+        }
+
+        @Override
+        public Money parse(String text, Locale locale) throws ParseException {
+            text = CurrencyUnit.getInstance(locale).getCurrencyCode()+text;
+            final Money money = moneyFormatter.parseMoney(text);
+            return money;
+        }
+
+        @Override
+        public String print(Money object, Locale locale) {
+            return moneyFormatter.print(object).substring(3);
+        }
+    }
 }

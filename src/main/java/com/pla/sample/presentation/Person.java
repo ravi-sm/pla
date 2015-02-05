@@ -3,6 +3,8 @@ package com.pla.sample.presentation;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.joda.money.CurrencyUnit;
+import org.joda.money.Money;
 import org.joda.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
@@ -19,7 +21,8 @@ public class Person {
     private String branch;
     private String designation;
     private LocalDate joiningDate;
-    private BigDecimal commission;
+    private Money commission;
     private boolean status;
 
 }
+
