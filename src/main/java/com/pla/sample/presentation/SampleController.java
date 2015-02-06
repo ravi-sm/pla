@@ -3,16 +3,26 @@ package com.pla.sample.presentation;
 import com.pla.sample.application.AgentCommand;
 import com.pla.sample.application.SampleCommand;
 import org.axonframework.commandhandling.gateway.CommandGateway;
+import org.joda.money.Money;
+import org.joda.time.LocalDate;
+import org.nthdimenzion.common.AppConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.nthdimenzion.common.AppConstants.DEFAULT_CURRENCY;
+import static org.springframework.http.MediaType.ALL_VALUE;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 /**
  * Author: Nthdimenzion
@@ -36,7 +46,7 @@ public class SampleController {
         return "pla/sample/agentCreation";
     }
 
-    @RequestMapping(value = "/agent",method = RequestMethod.GET)
+    @RequestMapping(value = "/agent",method = GET)
     public String getAgent(Model model){
         model.addAttribute("agentCommand", new AgentCommand());
         return "pla/sample/agentCreation";
@@ -53,8 +63,17 @@ public class SampleController {
     public String saveAgent(@Valid SampleCommand sampleCommand, BindingResult bindingResult){
         System.out.println("SampleCommand");
         System.out.println(sampleCommand);
-        System.out.println(sampleCommand.getMultipartFile().getSize());
+//        System.out.println(sampleCommand.getMultipartFile().getSize());
         return "pla/sample/sample";
+    }
+
+    @RequestMapping(value = "/getSampleJsonWithDateAndMoney", method = GET,produces = APPLICATION_JSON_VALUE, consumes = ALL_VALUE)
+    @ResponseBody
+    public Map getSampleJsonWithDateAndMoney() {
+        Map result = new HashMap();
+        result.put("date", LocalDate.now());
+        result.put("money", Money.of(DEFAULT_CURRENCY, BigDecimal.TEN));
+        return result;
     }
 
 }

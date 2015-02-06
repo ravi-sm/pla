@@ -11,6 +11,7 @@ import org.joda.money.Money;
 import org.joda.money.format.MoneyAmountStyle;
 import org.joda.money.format.MoneyFormatter;
 import org.joda.money.format.MoneyFormatterBuilder;
+import org.nthdimenzion.common.AppConstants;
 import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.context.embedded.ErrorPage;
@@ -29,6 +30,10 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import java.text.ParseException;
 import java.util.Locale;
+
+import static org.nthdimenzion.common.AppConstants.MONEY_FORMATTER;
+import static org.nthdimenzion.presentation.AppUtils.PrependCurrencyUnit;
+import static org.nthdimenzion.presentation.AppUtils.StripCurrencyUnit;
 
 /**
  * @author: Samir
@@ -91,22 +96,14 @@ public class CustomMVCConfiguration extends WebMvcConfigurerAdapter {
 
     private class JodaMoneyFormatter implements Formatter<Money> {
 
-        private MoneyFormatter moneyFormatter;
-
-        public JodaMoneyFormatter() {
-            moneyFormatter = new MoneyFormatterBuilder().appendCurrencyCode().appendAmount(MoneyAmountStyle.ASCII_DECIMAL_POINT_GROUP3_COMMA).toFormatter();
-        }
-
         @Override
         public Money parse(String text, Locale locale) throws ParseException {
-            text = CurrencyUnit.getInstance(locale).getCurrencyCode()+text;
-            final Money money = moneyFormatter.parseMoney(text);
-            return money;
+            return MONEY_FORMATTER.parseMoney(PrependCurrencyUnit(text));
         }
 
         @Override
         public String print(Money object, Locale locale) {
-            return moneyFormatter.print(object).substring(3);
+            return StripCurrencyUnit(MONEY_FORMATTER.print(object));
         }
     }
 }
