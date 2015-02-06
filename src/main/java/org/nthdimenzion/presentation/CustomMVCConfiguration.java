@@ -42,6 +42,10 @@ import static org.nthdimenzion.presentation.AppUtils.StripCurrencyUnit;
 @Configuration
 public class CustomMVCConfiguration extends WebMvcConfigurerAdapter {
 
+    static {
+        Locale.setDefault(Locale.UK);
+    }
+
     @Bean
     public EmbeddedServletContainerCustomizer containerCustomizer() {
 
@@ -59,7 +63,7 @@ public class CustomMVCConfiguration extends WebMvcConfigurerAdapter {
     @Bean
     public LocaleResolver localeResolver() {
         SessionLocaleResolver slr = new SessionLocaleResolver();
-        slr.setDefaultLocale(Locale.UK);
+        slr.setDefaultLocale(Locale.getDefault());
         return slr;
     }
 

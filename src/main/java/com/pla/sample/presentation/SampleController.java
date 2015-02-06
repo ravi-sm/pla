@@ -5,11 +5,16 @@ import com.pla.sample.application.SampleCommand;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.joda.money.Money;
 import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.nthdimenzion.common.AppConstants;
+import org.nthdimenzion.presentation.AppUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,6 +25,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.nthdimenzion.common.AppConstants.DEFAULT_CURRENCY;
+import static org.nthdimenzion.presentation.AppUtils.ToLocalDate;
+import static org.nthdimenzion.presentation.AppUtils.ToMoney;
 import static org.springframework.http.MediaType.ALL_VALUE;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -74,6 +81,15 @@ public class SampleController {
         result.put("date", LocalDate.now());
         result.put("money", Money.of(DEFAULT_CURRENCY, BigDecimal.TEN));
         return result;
+    }
+
+    @RequestMapping(value = "/saveSampleJsonWithDateAndMoney", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity saveSampleJsonWithDateAndMoney(@RequestBody Map input) {
+        System.out.println(ToLocalDate(input.get("date").toString()));
+        System.out.println(ToMoney(input.get("money").toString()));
+        System.out.println(input);
+        return ResponseEntity.ok().build();
     }
 
 }

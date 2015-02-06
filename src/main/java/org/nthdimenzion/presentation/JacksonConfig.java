@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.util.Locale;
 
 import static org.nthdimenzion.common.AppConstants.MONEY_FORMATTER;
+import static org.nthdimenzion.presentation.AppUtils.GetDateTimeFormat;
 import static org.nthdimenzion.presentation.AppUtils.PrependCurrencyUnit;
 import static org.nthdimenzion.presentation.AppUtils.StripCurrencyUnit;
 
@@ -31,16 +32,7 @@ import static org.nthdimenzion.presentation.AppUtils.StripCurrencyUnit;
 @Component
 public class JacksonConfig implements BeanPostProcessor {
 
-    private static DateTimeFormatter formatter;
-
-    static {
-        String patternEnglish = DateTimeFormat.patternForStyle("S-", Locale.getDefault());
-        patternEnglish = patternEnglish.replace("yy", "yyyy");
-        patternEnglish = patternEnglish.replace("d", "dd");
-        patternEnglish = patternEnglish.replace("M", "MM");
-        System.out.println(patternEnglish);
-        formatter = DateTimeFormat.forPattern(patternEnglish);
-    }
+    private static DateTimeFormatter formatter = GetDateTimeFormat();
 
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
         return bean;
