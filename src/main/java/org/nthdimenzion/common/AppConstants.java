@@ -10,6 +10,9 @@ import java.util.Locale;
 
 public interface AppConstants {
 
+    /**
+     * Not to used !!
+     */
     CurrencyUnit DEFAULT_CURRENCY = CurrencyUnit.of(Locale.getDefault());
 
 }
