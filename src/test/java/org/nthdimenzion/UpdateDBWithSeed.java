@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class UpdateDBWithSeed {
 
-    List<File> seeds = ImmutableList.of(new File("src\\main\\resources\\scripts\\seed.sql"));
+    List<File> seeds = ImmutableList.of(new File("src\\main\\resources\\import.sql"));
 
     public void execute(ApplicationContext context) throws IOException {
         DataSource dataSource = context.getBean("dataSourceRef", DataSource.class);

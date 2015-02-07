@@ -5,6 +5,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.nthdimenzion.common.service.JpaRepositoryFactory;
+import org.nthdimenzion.security.domain.SecurityPermission;
 import org.nthdimenzion.security.domain.UserLogin;
 import org.nthdimenzion.security.repository.UserLoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +28,15 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(value = "classpath:testContext.xml")
 public class TestContext {
+    @Autowired
+    private JpaRepositoryFactory jpaRepositoryFactory;
 
-    @PersistenceContext
-    private EntityManager entityManager;
 
+    @Test
+    public void select() {
+        SecurityPermission securityPermission = new SecurityPermission();
+        JpaRepository jpaRepository = jpaRepositoryFactory.getCrudRepository(securityPermission);
+        List list= jpaRepository.findAll();
+    }
 
 }

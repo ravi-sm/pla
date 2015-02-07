@@ -31,7 +31,7 @@ public class SecurityPermission implements ICrudEntity{
 
     private String description;
 
-    SecurityPermission() {
+    public SecurityPermission() {
 
     }
 

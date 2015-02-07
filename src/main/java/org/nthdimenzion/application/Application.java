@@ -6,11 +6,16 @@
 
 package org.nthdimenzion.application;
 
+import org.flywaydb.core.Flyway;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.orm.jpa.EntityScan;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ImportResource;
+
+import javax.sql.DataSource;
 
 /**
  * @author: Samir
@@ -22,10 +27,18 @@ import org.springframework.context.annotation.ImportResource;
 @ImportResource(value = "classpath:axonContext.xml")
 public class Application {
 
+    @Autowired
+    private DataSource dataSource;
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
 
-
+    @Bean(initMethod = "migrate",name = "flyway")
+    public Flyway flyway(){
+        Flyway flyway = new Flyway();
+        flyway.setInitOnMigrate(true);
+        flyway.setDataSource(dataSource);
+        return flyway;
+    }
 }
