@@ -8,20 +8,23 @@ import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.nthdimenzion.common.AppConstants;
+import org.nthdimenzion.ddd.domain.User;
 import org.nthdimenzion.presentation.AppUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.nthdimenzion.common.AppConstants.DEFAULT_CURRENCY;
@@ -90,6 +93,42 @@ public class SampleController {
         System.out.println(ToMoney(input.get("money").toString()));
         System.out.println(input);
         return ResponseEntity.ok().build();
+    }
+
+
+    public static List<User> users = new ArrayList<User>();
+
+    @InitBinder
+    public void setAllowedFields(WebDataBinder dataBinder) {
+        dataBinder.setDisallowedFields("id");
+    }
+
+
+    @RequestMapping(value = "/user/new", method = RequestMethod.GET)
+    public String findUserForm(Model model) {
+        model.addAttribute(new User());
+        return "user/addUser";
+    }
+
+    @RequestMapping(value = "/user/new", method = RequestMethod.POST)
+    public String addNewUser(@Valid User user, BindingResult result, SessionStatus status) {
+        if (result.hasErrors()) {
+            return "user/addUser";
+        } else {
+            if (user!=null){
+                users.add(user);
+                status.setComplete();
+                return "redirect:/sample/user/userList";
+            }
+            return "user/addUser";
+        }
+    }
+
+    @RequestMapping("/user/userList")
+    public ModelAndView showUser() {
+        ModelAndView mav = new ModelAndView("/user/userList");
+        mav.addObject(users);
+        return mav;
     }
 
 }

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
+<head th:include="fragments/common :: headTag">
+</head>
+
+<body>
+
+<div>
+    <div th:include="fragments/common :: bodyHeader" th:remove="tag">
+    </div>
+    <div class="container" th:if="${#lists.isEmpty(userList)}">
+        No users found.
+    </div>
+    <div class="container" th:unless="${not #lists.isEmpty(userList)}">
+        <a th:href="@{'/sample/user/new'}" href="addUser.html">Add User</a>
+    </div>
+</div>
+<div >
+    <div th:if="${not #lists.isEmpty(userList)}">
+        <div class="navbar" >
+            <div class="navbar-inner">
+                <h4 >User Details</h4>
+            </div>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th style="width: 150px;">First Name</th>
+                <th style="width: 150px;">Last Name</th>
+                <th style="width: 200px;">Address</th>
+                <th style="width: 200px;">Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${userList}">
+                <td th:text="${user.firstName}">Mary</td>
+                <td th:text="${user.lastName}">Smith </td>
+                <td th:text="${user.address}">45, Oxford Street</td>
+                <td th:text="${#dates.format(user.date.toDate(), 'yyyy-MM-dd')}">[date yyyy-MM-dd]</td>
+            </tr>
+
+            </tbody>
+        </table>
+        <a th:href="@{'/sample/user/new'}" href="addUser.html">Add User</a>
+    </div>
+</div>
+<footer class="footer" th:include="fragments/common :: footer">
+    <div class="container">
+        <p class="text-muted">Place sticky footer content here.</p>
+    </div>
+</footer>
+</body>
+</html>

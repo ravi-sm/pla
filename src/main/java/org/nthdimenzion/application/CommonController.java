@@ -16,6 +16,4 @@ public class CommonController {
     public String webjarjs() {
         return RequireJS.getSetupJavaScript("/pla/webjars/");
     }
-
-
 }
