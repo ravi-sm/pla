@@ -61,14 +61,12 @@ public class SampleController {
 
     @RequestMapping(produces = "text/html")
     public String sampleFormController(Model model) {
-        System.out.println("Hello world");
         model.addAttribute("sampleCommand", new SampleCommand());
         return "/pla/sample/sample";
     }
 
     @RequestMapping(value = "/saveSample",method = RequestMethod.POST)
     public String saveAgent(@Valid SampleCommand sampleCommand, BindingResult bindingResult){
-        System.out.println("SampleCommand");
         System.out.println(sampleCommand);
 //        System.out.println(sampleCommand.getMultipartFile().getSize());
         return "pla/sample/sample";
@@ -86,6 +84,7 @@ public class SampleController {
     @RequestMapping(value = "/saveSampleJsonWithDateAndMoney", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity saveSampleJsonWithDateAndMoney(@RequestBody Map input) {
+        // Assumed that date will come in dd/MM/yyyy format
         System.out.println(ToLocalDate(input.get("date").toString()));
         System.out.println(ToMoney(input.get("money").toString()));
         System.out.println(input);
