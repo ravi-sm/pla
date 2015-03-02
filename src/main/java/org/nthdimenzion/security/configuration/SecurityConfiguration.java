@@ -6,13 +6,17 @@
 
 package org.nthdimenzion.security.configuration;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.nthdimenzion.security.domain.UserLoginDetailDto;
 import org.nthdimenzion.security.service.AuthenticationFailureHandler;
 import org.nthdimenzion.security.service.AuthenticationSuccessHandler;
 import org.nthdimenzion.security.service.Http401UnauthorizedEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.GsonHttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.security.authentication.dao.SystemWideSaltSource;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -27,6 +31,8 @@ import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 
 import javax.sql.DataSource;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author: Samir
@@ -57,6 +63,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private AuthenticationSuccessHandler authenticationSuccessHandler;
     @Autowired
     private AuthenticationFailureHandler authenticationFailureHandler;
+
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
@@ -134,4 +141,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         rememberMeServices.setTokenValiditySeconds(2678400); // 1month
         return rememberMeServices;
     }
+
+/*
+    @Bean
+    public RestTemplate createRestTemplate() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.reader(UserLoginDetailDto.class);
+        RestTemplate restTemplate = new RestTemplate();
+        List<HttpMessageConverter<?>> messageConverters = new ArrayList<>();
+        GsonHttpMessageConverter jsonMessageConverter = new GsonHttpMessageConverter();
+        messageConverters.add(jsonMessageConverter);
+        restTemplate.setMessageConverters(messageConverters);
+        return restTemplate;
+    }*/
 }

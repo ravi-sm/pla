@@ -14,8 +14,12 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.math.BigDecimal;
+<<<<<<< Updated upstream
 import java.util.HashMap;
 import java.util.Map;
+=======
+import java.util.*;
+>>>>>>> Stashed changes
 
 import static org.nthdimenzion.common.AppConstants.DEFAULT_CURRENCY;
 import static org.nthdimenzion.presentation.AppUtils.ToLocalDate;
@@ -84,4 +88,7 @@ public class SampleController {
         return ResponseEntity.ok().build();
     }
 
+    public void getTheUserDetail(){
+              String s = "";
+    }
 }
