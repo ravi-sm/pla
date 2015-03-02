@@ -10,16 +10,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
 import java.math.BigDecimal;
-<<<<<<< Updated upstream
 import java.util.HashMap;
 import java.util.Map;
-=======
-import java.util.*;
->>>>>>> Stashed changes
 
 import static org.nthdimenzion.common.AppConstants.DEFAULT_CURRENCY;
 import static org.nthdimenzion.presentation.AppUtils.ToLocalDate;
